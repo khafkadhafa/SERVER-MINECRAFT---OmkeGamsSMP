@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmkeGams SMP | Survival RPG</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #c90000; 
+            --bg-dark: #0f0f13; 
+            --bg-card: #1a1a24; 
+            --text-light: #e0e0e0;
+            --accent: #ffae00; 
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent);
+        }
+
+        /* Navbar */
+        nav {
+            background: rgba(15, 15, 19, 0.95);
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        nav img {
+            height: 50px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        /* Header / Hero */
+        header {
+            height: 100vh;
+            /* Latar belakang menggunakan link gambar Discord ke-1 */
+            background: linear-gradient(rgba(15, 15, 19, 0.7), rgba(15, 15, 19, 0.95)), 
+                        url('https://cdn.discordapp.com/attachments/1045871943548665986/1514605267151618130/IMG-20250531-WA0102.jpg?ex=6a2bf993&is=6a2aa813&hm=2d0c56510ee1bb9f41a6c63af89d55153d2b24688edca566c6367ac421acfc43&') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-logo {
+            max-width: 300px;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0px 0px 15px rgba(255, 174, 0, 0.3));
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 10px #000;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #ddd;
+            font-style: italic;
+        }
+
+        .ip-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn-ip {
+            background: var(--bg-card);
+            color: white;
+            border: 2px solid var(--primary);
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ip:hover {
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .version-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid #555;
+        }
+
+        /* Container & Titles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--primary);
+            margin: 10px auto 0;
+        }
+
+        /* Grid Fitur */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #333;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+
+        /* Aturan Server */
+        .rules-box {
+            background: rgba(201, 0, 0, 0.1);
+            border-left: 5px solid var(--primary);
+            padding: 2rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .rules-box ul {
+            list-style-type: square;
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .rules-box li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Komunitas */
+        .community-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-social {
+            padding: 15px 30px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            transition: opacity 0.3s;
+        }
+
+        .btn-social:hover {
+            opacity: 0.8;
+        }
+
+        .btn-discord { background: #5865F2; }
+        .btn-wa { background: #25D366; }
+
+        /* Footer */
+        footer {
+            background: #050505;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #222;
+        }
+
+        /* --- PENGATURAN LAYAR HP (RESPONSIVE MOBILE) --- */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            nav img {
+                height: 60px;
+            }
+
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .ip-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-ip {
+                width: 100%;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi -->
+    <nav>
+        <img src="https://cdn.discordapp.com/attachments/1045871943548665986/1514616508733718579/1781181991425.png?ex=6a2c040b&is=6a2ab28b&hm=8be5e4177edc8a3fc3fda5dc2f5c70a6f12dd15d91dcf42a5286be4b374c1561&" alt="OmkeGams Logo">
+        <ul>
+            <li><a href="#">Beranda</a></li>
+            <li><a href="#fitur">Fitur</a></li>
+            <li><a href="#galeri">Galeri</a></li>
+            <li><a href="#aturan">Aturan</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero / Beranda -->
+    <header>
+        <img src="https://cdn.discordapp.com/attachments/1045871943548665986/1514616508733718579/1781181991425.png?ex=6a2c040b&is=6a2ab28b&hm=8be5e4177edc8a3fc3fda5dc2f5c70a6f12dd15d91dcf42a5286be4b374c1561&" alt="OmkeGams SMP" class="hero-logo">
+        <h1>OmkeGams SMP</h1>
+        <p>"Petualangan Tanpa Batas, Kekayaan Tanpa Akhir!"</p>
+        
+        <div class="ip-container">
+            <button class="btn-ip" id="btn-java" onclick="copyIP('java')">Salin IP Java</button>
+            <button class="btn-ip" id="btn-bedrock" onclick="copyIP('bedrock')">Salin IP Bedrock</button>
+        </div>
+        
+        <span class="version-badge">Mendukung Versi Terbaru | Crossplay Java & Bedrock</span>
+    </header>
+
+    <!-- Fitur Server -->
+    <div class="container" id="fitur">
+        <h2 class="section-title">Sistem & Fitur</h2>
+        <div class="features">
+            <div class="feature-card">
+                <h3>Custom Weapon & Armor</h3>
+                <p>Tingkatkan kekuatan tempurmu dengan berbagai senjata dan zirah kustom yang tidak akan kamu temukan di Minecraft biasa.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Dungeon & Boss Epik</h3>
+                <p>Uji nyalimu! Jelajahi dungeon rahasia dan kalahkan bos-bos mematikan untuk mendapatkan loot eksklusif yang sangat berharga.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Ekonomi Pemain</h3>
+                <p>Kumpulkan kekayaan tanpa akhir! Jual beli barang, bangun toko, dan jadilah pemain paling makmur di server.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Custom Enchantment</h3>
+                <p>Terapkan sihir-sihir unik pada perabotan dan senjatamu untuk mendapatkan efek luar biasa saat bertahan hidup maupun bertarung.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Kosmetik (Cosmetic)</h3>
+                <p>Tampil beda dan jadilah pusat perhatian dengan berbagai kosmetik menawan yang bisa menghiasi karaktermu.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Crossplay Java & Bedrock</h3>
+                <p>Mainkan bersama temanmu tanpa halangan perangkat! Pemain dari PC (Java) dan HP/Console (Bedrock) dapat bermain di satu dunia yang sama.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Galeri Pemandangan -->
+    <div class="container" id="galeri">
+        <h2 class="section-title">Pemandangan Server</h2>
+        <div class="gallery">
+            <img src="https://cdn.discordapp.com/attachments/1045871943548665986/1514605267449282640/IMG-20250531-WA0101.jpg?ex=6a2bf993&is=6a2aa813&hm=6d910866d450e4c4d8ce1328382abfe6d5339efbc5ba0f645021a786848bc3cd&" alt="Pemandangan 1">
+            <img src="https://cdn.discordapp.com/attachments/1045871943548665986/1514605267780763850/IMG-20250531-WA0105.jpg?ex=6a2bf993&is=6a2aa813&hm=9ae0ee981b2da4ba4478e7dfb3f1c9b39754a83e55d78085d8b041559bda4d9d&" alt="Pemandangan 2">
+            <img src="https://cdn.discordapp.com/attachments/1045871943548665986/1514605268149997568/IMG-20250614-WA0044.jpg?ex=6a2bf993&is=6a2aa813&hm=3de0f493b8c6fa123846d0ecddc134d84a4288a8fa74849737cb93872edba7c1&" alt="Pemandangan 3">
+            <img src="https://cdn.discordapp.com/attachments/1045871943548665986/1514605269768732832/2026-04-02_23.16.11.png?ex=6a2bf994&is=6a2aa814&hm=c0fb416707e3fd1fb0e56811b4e296c2ba256853ded722e57bf7dac6df9682df&" alt="Pemandangan 4">
+        </div>
+    </div>
+
+    <!-- Aturan Server & Komunitas -->
+    <div class="container" id="aturan">
+        <h2 class="section-title">Aturan Bermain</h2>
+        <div class="rules-box">
+            <h3>Penting Untuk Dibaca:</h3>
+            <ul>
+                <li><strong>Dilarang keras melakukan Griefing pada Base pemain lain.</strong> Mari saling menghargai hasil jerih payah orang lain.</li>
+                <li><strong>Pertarungan (PvP) hanya boleh dilakukan di area/tempat yang sudah disediakan.</strong> Jangan menyerang pemain secara acak di luar area arena.</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 5rem;">Bergabung dengan Komunitas</h2>
+        <div class="community-links">
+            <a href="https://discord.gg/q8t5hMTN" target="_blank" class="btn-social btn-discord">
+                Gabung Discord Server
+            </a>
+            <a href="https://chat.whatsapp.com/HysJXNx2KEMBBtmA0ebGVl?s=cl&p=a&mlu=0" target="_blank" class="btn-social btn-wa">
+                Gabung Grup WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 OmkeGams SMP. Petualangan Tanpa Batas.</p>
+    </footer>
+
+    <!-- Script Salin IP -->
+    <script>
+        function copyIP(type) {
+            let ipToCopy = "";
+            let btnId = "";
+            let originalText = "";
+
+            if (type === 'java') {
+                ipToCopy = "omkegams.arqonara.my.id";
+                btnId = "btn-java";
+                originalText = "Salin IP Java";
+            } else if (type === 'bedrock') {
+                ipToCopy = "IP: omkegams.arqonara.my.id | Port: 25455";
+                btnId = "btn-bedrock";
+                originalText = "Salin IP Bedrock";
+            }
+
+            navigator.clipboard.writeText(ipToCopy).then(() => {
+                const btn = document.getElementById(btnId);
+                btn.innerHTML = "Berhasil Disalin!";
+                btn.style.background = "var(--accent)";
+                btn.style.color = "#000";
+                btn.style.borderColor = "var(--accent)";
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = "var(--bg-card)";
+                    btn.style.color = "white";
+                    btn.style.borderColor = "var(--primary)";
+                }, 3000);
+            }).catch(err => {
+                alert("Gagal menyalin IP otomatis. Silakan ketik: " + ipToCopy);
+            });
+        }
+    </script>
+
+</body>
+</html>
